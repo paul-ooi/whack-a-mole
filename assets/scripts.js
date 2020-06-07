@@ -1,3 +1,5 @@
+var score = 0;
+var timeLeft;
 document.addEventListener("DOMContentLoaded", function() {
     const board = document.getElementById("board");
 
@@ -54,4 +56,17 @@ function moveMole() {
     });
 
     randomMole();
+}
+
+// Check Mole was hit and add score
+function whack(event) {
+    let targetSquare = event.target;
+    let moleHit = targetSquare.classList.contains("mole");
+    if (moleHit) {
+        targetSquare.classList.remove("mole");
+        score++;
+
+        document.getElementById("score").textContent = score;
+        moveMole();
+    }
 }

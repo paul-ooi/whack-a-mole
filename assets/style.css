@@ -22,3 +22,8 @@
     background-size: contain;
     background-position: center;
 }
+
+.square:active {
+    background-color: red;
+    border-color: yellow;
+}
