@@ -1,0 +1,24 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+#board {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 2em;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    border: 2px solid black;
+}
+
+.mole {
+    background-image: url("./img/mole.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
