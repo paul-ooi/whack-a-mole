@@ -1,12 +1,17 @@
 var score = 0;
 var timeLeft;
+var moleInterval;
+var moleChange = new Event("moleChange");
 document.addEventListener("DOMContentLoaded", function() {
     const board = document.getElementById("board");
 
     createBoard(4, 3);
     randomMole();
-
-    setInterval(moveMole, 1000);
+});
+document.addEventListener("moleChange", function() {
+    console.log("moleChange Fired");
+    moveMole();
+    // setInterval(moveMole, 1000);
 });
 
 //Create Board
@@ -38,6 +43,13 @@ function boardMaxWidth(x) {
 function showMole(id) {
     let square = document.querySelector("[data-id='" + id + "']");
     square.classList.add("mole");
+
+    if (typeof moleInterval != "undefined") {
+        clearInterval(moleInterval);
+    }
+    moleInterval = setInterval(function() {
+        document.dispatchEvent(moleChange);
+    }, 1000);
 }
 
 // Randomize which square gets a Mole
