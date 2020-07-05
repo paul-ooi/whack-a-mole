@@ -3,6 +3,9 @@ var timeLeft;
 var countdownInterval;
 var moleInterval;
 var moleChange = new Event("moleChange");
+document.addEventListener("moleChange", moveMole);
+
+//Build Game Board on Load of Page
 document.addEventListener("DOMContentLoaded", function() {
     const board = document.getElementById("board");
 
@@ -11,11 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
     updateScore();
 
     startCountdown();
-});
-document.addEventListener("moleChange", function() {
-    console.log("moleChange Fired");
-    moveMole();
-    // setInterval(moveMole, 1000);
 });
 
 //Create Board
@@ -27,7 +25,7 @@ function createBoard(x, y) {
         square.classList.add("square");
         square.setAttribute("data-id", i + 1);
 
-        square.addEventListener("mouseup", whack);
+        square.addEventListener("click", whack);
 
         board.appendChild(square);
     }
@@ -69,15 +67,17 @@ function moveMole() {
     let moleSquares = document.querySelectorAll(".square.mole");
     moleSquares.forEach((element, index) => {
         element.classList.remove("mole");
+        randomMole();
     });
-
-    randomMole();
 }
 
 // Check Mole was hit and add score
 function whack(event) {
     let targetSquare = event.target;
+    // console.log("whack");
+
     let moleHit = targetSquare.classList.contains("mole");
+    // console.log(moleHit);
     if (moleHit) {
         updateMessage("hit");
         addScore();
@@ -93,7 +93,7 @@ function addScore() {
 }
 
 function updateScore() {
-        document.getElementById("score").textContent = score;
+    document.getElementById("score").textContent = score;
 }
 
 function startCountdown() {
@@ -121,7 +121,7 @@ function gameOver() {
 function updateMessage(msg) {
     let messageEl = document.getElementById("message");
     messageEl.textContent = msg;
-    }
+}
 
 function clearMessage() {
     let messageEl = document.getElementById("message");
