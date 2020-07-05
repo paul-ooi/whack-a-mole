@@ -2,6 +2,8 @@ var score = 0;
 var timeLeft;
 var countdownInterval;
 var moleInterval;
+var pointValue;
+var changepointValueInterval;
 var moleChange = new Event("moleChange");
 document.addEventListener("moleChange", moveMole);
 
@@ -59,11 +61,25 @@ function showMole(id) {
     square.classList.add("mole");
 
     if (typeof moleInterval != "undefined") {
+        console.log("before clear Interval");
+
         clearInterval(moleInterval);
     }
     moleInterval = setInterval(function() {
         document.dispatchEvent(moleChange);
     }, 1000);
+
+    // Set a Varied Point value to the Mole in the time it takes to whack it
+    pointValue = 120;
+    let scoreEl = document.getElementById("score");
+    if (typeof moleInterval != "undefined") {
+        clearInterval(changepointValueInterval);
+    }
+    changepointValueInterval = setInterval(function() {
+        scoreEl.setAttribute("data-points", pointValue);
+        pointValue -= 15;
+        if (pointValue <= 10) pointValue = 10;
+    }, 120);
 }
 
 // Randomize which square gets a Mole
@@ -101,7 +117,9 @@ function whack(event) {
 }
 
 function addScore() {
-    score += 10;
+    let scoreEl = document.getElementById("score");
+    let pointValue = scoreEl.getAttribute("data-points");
+    score += parseInt(pointValue);
 }
 
 function updateScore() {
@@ -126,6 +144,7 @@ function startCountdown() {
  */
 function gameOver() {
     document.removeEventListener("moleChange", moveMole);
+    clearInterval(changepointValue);
     let moleSquares = document.querySelectorAll(".square.mole");
     moleSquares.forEach((element, index) => {
         element.classList.remove("mole");
