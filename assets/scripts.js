@@ -8,12 +8,11 @@ document.addEventListener("moleChange", moveMole);
 //Build Game Board on Load of Page
 document.addEventListener("DOMContentLoaded", function() {
     const board = document.getElementById("board");
+    const startBtn = document.getElementById("start-game");
 
     createBoard(4, 3);
-    randomMole();
-    updateScore();
 
-    startCountdown();
+    startBtn.addEventListener("click", startGame);
 });
 
 //Create Board
@@ -39,6 +38,19 @@ function boardMaxWidth(x) {
     let squareWidth = parseFloat(window.getComputedStyle(square).width);
     let maxWidth = squareWidth * x;
     board.style.maxWidth = maxWidth + "px";
+}
+
+/**
+ * Start Game
+ */
+function startGame() {
+    randomMole();
+    updateScore();
+    startCountdown();
+
+    const startBtn = document.getElementById("start-game");
+    startBtn.setAttribute("disabled", true);
+    startBtn.removeEventListener("click", startGame);
 }
 
 // Show a Mole
@@ -109,6 +121,9 @@ function startCountdown() {
     }, 1000);
 }
 
+/**
+ * Clear the board, update Message
+ */
 function gameOver() {
     document.removeEventListener("moleChange", moveMole);
     let moleSquares = document.querySelectorAll(".square.mole");
@@ -118,12 +133,11 @@ function gameOver() {
     updateMessage("Game Over");
 }
 
-function updateMessage(msg) {
+/**
+ * 
+ * @param {String} msg Text only message to send to Front End
+ */
+function updateMessage(msg = "") {
     let messageEl = document.getElementById("message");
     messageEl.textContent = msg;
-}
-
-function clearMessage() {
-    let messageEl = document.getElementById("message");
-    messageEl.textContent = "";
 }

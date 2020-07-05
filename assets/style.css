@@ -48,6 +48,30 @@
     border-color: yellow;
 }
 
+#start-game {
+    background: green;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    border: 3px solid green;
+    transition: 0.3s;
+    color: white;
+}
+
+#start-game:active,
+#start-game:hover {
+    background: white;
+    color: initial;
+}
+
+#start-game:disabled {
+    background: rgba(150, 150, 150, 0.4);
+    border: rgba(0, 0, 0, 0.4);
+    color: initial;
+}
+
 main {
     position: relative;
 }
