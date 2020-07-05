@@ -12,13 +12,23 @@
         <h1>Whack-a-Mole Game</h1>
         <div>
             <h2>Instructions</h2>
-            <p>Use your mouse to click on the mole image as many times as possible in the time alloted.</p>
+            <p>Click/Tap on the mole image as many times as possible in the time alloted.</p>
         </div>
-        <div>
-            <h3>Score: <span id="score"></span></h3>
-        </div>
+        
     </header>
     <main>
+        <aside id="notify">
+            <div class="score wrapper">
+                <h3>Score: <span id="score"></span></h3>
+            </div>
+            <div class="time wrapper">
+                <h3>Time Left: <span id="time"></span></h3>
+            </div>
+            <div class="message wrapper">
+                <h2>Game Alert</h2>
+                <div id="message"></div>
+            </div>
+        </aside>
         <div id="board">
             
         </div>
